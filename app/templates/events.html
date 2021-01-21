@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>My Events</h1>
+
+    {% for event in events %}
+        <div>
+            <h2>{{ event.name }}</h2>
+            <p>
+                On: {{ event.date }}
+                <br>
+                Where: {{ event.room }}
+                <br>
+                Number of guests: {{ event.guests_num }}
+                <br>
+                Description: {{ event.description }}
+                <br>
+                {% if event.recurring %}
+                This event is weekly.
+                {% endif %}
+            </p>
+        </div>
+    {% endfor %}
+        <h1>Create New Event</h1>
+        <form action="/events" method="POST">
+            <label for="event_name">Event Name</label>
+            <br>
+            <input type="text" name="event_name" id="name">
+            <br>
+            <label for="event_date">Event Date</label>
+            <br>
+            <input type="date" name="event_date">
+            <br>
+            <label for="event_guests">No. of Guests</label>
+            <br>
+            <input type="number" name="event_guests">
+            <br>
+            <label for="event_location">Location</label>
+            <br>
+            <input type="text" name="event_location">
+            <br>
+            <label for="event_description">Description</label>
+            <br>
+            <textarea name="event_description" id="event_description" cols="30" rows="10"></textarea>
+            <p>Is this recurring?</p>
+            <label for="event_recurring">Yes</label>
+            <input type="radio" name="event_recurring" value=True>
+            <label for="event_recurring">No</label>
+            <input type="radio" name="event_recurring" value=False>
+            <br>
+            <input type="submit" value="Add Event">
+        </form>
+
+        <h1>Delete Event</h1>
+        <form action="/events" method="POST">
+            <label for="event_name">Event Name</label>
+            <br>
+            <input type="text" name="event_name">
+            <br>
+            <input type="submit" value="Delete Event">
+        </form>
+
+
+{% endblock %}
